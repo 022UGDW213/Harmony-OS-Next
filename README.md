@@ -58,6 +58,26 @@ next-generation distributed operating system.
 - Device connectivity patterns
 - System service integration
 
+## Full-Stack Ark Development
+
+This repository now provides a shared full-stack foundation for HarmonyOS NEXT development:
+
+- **ArkTS/ArkUI client:** `arkts/entry/` contains a native status surface and web control-plane page for DevEco Studio.
+- **Browser control plane:** the existing React/Vite application remains available for rapid UI iteration.
+- **Reasoning API:** `server/reasoning-api.cjs` exposes health, capabilities, chat, analysis, and kernel-status endpoints.
+- **Native system layer:** `server/native/` remains isolated for freestanding kernel and QEMU work.
+- **Containers:** `Dockerfile` and `docker-compose.yml` provide a local web/API development profile.
+- **Contract:** see [`docs/ARK_FULLSTACK.md`](docs/ARK_FULLSTACK.md) for the shared API boundary.
+
+```bash
+npm install
+npm run dev
+npm run reasoning-api
+# or: docker compose up --build
+```
+
+Open the ArkTS module in DevEco Studio to run the native client on a HarmonyOS NEXT device or emulator. Configure the API base URL for the selected device network; do not commit provider credentials.
+
 ## Web App
 
 The repo also ships a Vite + React web app (ArkTS-style simulator components). Build with

@@ -1,0 +1,24 @@
+services:
+  web:
+    build: .
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - reasoning-api
+
+  reasoning-api:
+    build: .
+    command: npm run reasoning-api
+    ports:
+      - "3003:3003"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
