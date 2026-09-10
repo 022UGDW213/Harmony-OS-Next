@@ -2,13 +2,8 @@
   "module": {
     "name": "entry",
     "type": "entry",
-    "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": ["phone", "tablet", "2in1"],
-    "requestPermissions": [],
-    "pages": [
-      "pages/Index",
-      "pages/WebControl"
-    ]
+    "pages": ["pages/Index"]
   }
 }

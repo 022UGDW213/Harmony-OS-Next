@@ -1,11 +1,15 @@
-FROM node:22-bookworm-slim
-
+FROM node:22-bookworm-slim AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY package.json package-lock.json* ./
+RUN npm install
+
+FROM deps AS build
 COPY . .
+RUN npm run build
 
-ENV HOST=0.0.0.0
-EXPOSE 5173 3003
-
-CMD ["npm", "run", "dev"]
+FROM node:22-bookworm-slim
+WORKDIR /app
+COPY --from=build /app ./
+ENV NODE_ENV=production
+EXPOSE 3003
+CMD ["npm", "run", "dev:api"]

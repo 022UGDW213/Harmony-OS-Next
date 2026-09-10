@@ -1,24 +1,36 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: harmony
+      POSTGRES_USER: harmony
+      POSTGRES_PASSWORD: harmony
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d:ro
+
+  api:
+    build: .
+    command: npm run dev:api
+    environment:
+      PORT: 3003
+      DATABASE_URL: postgres://harmony:harmony@db:5432/harmony
+    ports:
+      - '3003:3003'
+    depends_on:
+      - db
+
   web:
     build: .
-    command: npm run dev -- --host 0.0.0.0
+    command: npm run dev:web -- --host 0.0.0.0
+    environment:
+      VITE_API_URL: http://localhost:3003
     ports:
-      - "5173:5173"
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - '5173:5173'
     depends_on:
-      - reasoning-api
+      - api
 
-  reasoning-api:
-    build: .
-    command: npm run reasoning-api
-    ports:
-      - "3003:3003"
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-      - /app/node_modules
+volumes:
+  postgres_data:
