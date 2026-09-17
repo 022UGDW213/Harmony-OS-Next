@@ -40,6 +40,22 @@ docker compose up --build
 
 Open `arkts/` in DevEco Studio, select a HarmonyOS NEXT device or emulator, and run the `entry` module. Update the API host for a physical device; on a device, `localhost` means the device itself.
 
+### Zen — breathing companion app
+
+The `entry` module ships a complete minimalist app built with Zen architecture
+(clean layered structure: theme → state → services → UI):
+
+| Layer | Location | Responsibility |
+|---|---|---|
+| Theme | `ets/features/zen/theme/` | Design tokens — colors, spacing, type |
+| State | `ets/features/zen/state/` | `ZenSession` (`@Observed`) — phase, timer, progress |
+| Services | `ets/features/zen/services/` | `BreathEngine` — pure inhale 4s → hold 4s → exhale 6s state machine |
+| UI | `ets/features/zen/ui/` | `BreathCircle` (animated) and `ZenControls` (timer, stats, length picker) |
+| Page | `ets/pages/Index.ets` | Composes the Zen home screen |
+
+Features: animated breathing circle, 1/3/5-minute sessions, breath counter,
+elapsed/session stats, progress bar, calm dark theme with sage accents.
+
 ## Commands
 
 ```bash
