@@ -1,0 +1,1 @@
+{"app":{"compatibleSdkVersion":"26.0.0","compileSdkVersion":"26.0.0","products":[{"applyToProducts":[],"compatibleSdkVersion":"26.0.0","name":"default","runtimeOS":"HarmonyOS","signingConfig":"default"}],"signingConfigs":[]},"modules":[{"name":"entry","srcPath":"./entry","targets":[{"applyToProducts":["default"],"name":"default"}]}]}

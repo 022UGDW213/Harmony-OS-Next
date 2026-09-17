@@ -38,7 +38,30 @@ docker compose up --build
 
 ## ArkTS development
 
-Open `arkts/` in DevEco Studio, select a HarmonyOS NEXT device or emulator, and run the `entry` module. Update the API host for a physical device; on a device, `localhost` means the device itself.
+`arkts/` is a complete DevEco Studio project: `AppScope/`, the `entry`
+module (hvigor build files, `oh-package`, resources, `EntryAbility`), and
+the Zen breathing app under `ets/features/zen/`.
+
+- Open `arkts/` in DevEco Studio, select a HarmonyOS NEXT device or
+  emulator, and run the `entry` module.
+- Headless build (DevEco command-line tools on PATH):
+  `hvigorw assembleHap` from `arkts/`.
+- Update the API host for a physical device; on a device, `localhost`
+  means the device itself.
+
+## VM — DevEco in a virtual machine
+
+`vm/` builds a reproducible DevEco development VM (Ubuntu 24.04 + JDK 17 +
+Node + DevEco CLI tools) and boots it with KVM when available, TCG
+otherwise — so Windows, macOS, or Linux hosts all work the same way.
+
+```bash
+cd vm && ./build-deveco-vm.sh && ./launch-deveco-vm.sh
+# ssh -p 2222 dev@localhost
+```
+
+It also includes an experimental script that boots the HarmonyOS phone
+emulator image directly under QEMU. See [vm/README.md](vm/README.md).
 
 ### Zen — breathing companion app
 

@@ -1,10 +1,10 @@
 // ── Zen · home ─────────────────────────────────────────────────────
 // Minimalist breathing companion. Inhale 4 · hold 4 · exhale 6.
 
-import { ZenSession } from './features/zen/state/ZenSession';
-import { BreathCircle } from './features/zen/ui/BreathCircle';
-import { ZenControls } from './features/zen/ui/ZenControls';
-import { ZenColors, ZenSpacing } from './features/zen/theme/ZenTheme';
+import { ZenSession } from '../features/zen/state/ZenSession';
+import { BreathCircle } from '../features/zen/ui/BreathCircle';
+import { ZenControls } from '../features/zen/ui/ZenControls';
+import { ZenColors, ZenSpacing } from '../features/zen/theme/ZenTheme';
 
 @Entry
 @Component

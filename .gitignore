@@ -9,3 +9,14 @@ coverage/
 *.log
 .vscode/
 .idea/
+
+# DevEco / hvigor build outputs
+.venv/
+.hvigor/
+build/
+entry/build/
+oh_modules/
+.har/
+.hsp/
+.hap/
+local.properties
