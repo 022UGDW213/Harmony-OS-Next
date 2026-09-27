@@ -4,6 +4,28 @@ Everything needed to develop for HarmonyOS NEXT inside a virtual machine,
 so one computer can host the whole toolchain regardless of host OS
 (Windows, macOS, or Linux).
 
+## 0. Host prerequisites (probed 2026-09-27)
+
+The scripts check these themselves; none of them are installed by the repo.
+
+| Tool | Used by | Present on the verification workstation |
+|---|---|---|
+| `qemu-system-x86_64` | `launch-deveco-vm.sh`, `launch-emulator.sh` | yes — `/usr/bin/qemu-system-x86_64` |
+| `qemu-img` | `build-deveco-vm.sh`, `launch-emulator.sh` | yes — `/usr/bin/qemu-img` |
+| `/dev/kvm` | KVM acceleration (both launchers fall back to TCG) | yes — `/dev/kvm` exists |
+| `cloud-localds` or `genisoimage` | `build-deveco-vm.sh` seed-ISO step (`build-deveco-vm.sh:74-80`; the script exits 1 without one) | **no** — neither is installed |
+| DevEco command-line tools (`hvigorw`, `hdc`, `ohpm`) | `hvigorw assembleHap` inside the VM | **no** — none on `PATH` |
+| HarmonyOS system image | `launch-emulator.sh` (`$SDK`, default `$HOME/workspace/deveco/2600821/command-line-tools/sdk`) | **no** — that path does not exist |
+
+The Ubuntu 24.04 cloud image `build-deveco-vm.sh` downloads was reachable on
+2026-09-27 —
+`curl -sI https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img`
+→ `HTTP/1.1 200 OK`, `Content-Length: 625612288`,
+`Last-Modified: Sat, 26 Sep 2026 13:13:58 GMT`. Those header values are
+point-in-time: Ubuntu rebuilds the `current` image periodically, so they change
+without this repository changing. Neither VM was booted during that check: the
+scripts were read and their host prerequisites probed, not executed end to end.
+
 ## 1. DevEco development VM (recommended)
 
 A reproducible Ubuntu 24.04 VM with JDK 17, Node, and the QEMU guest agent,
@@ -46,6 +68,10 @@ SDK=$HOME/workspace/deveco/2600821/command-line-tools/sdk ./launch-emulator.sh
 > panics in `express_hotplug_init` / `express_gpu_init` — Huawei's kernel
 > expects proprietary emulator hardware. Not usable yet; kept here for
 > experimentation.
+>
+> This is the author's observation of 2026-09-17. It was **not** re-run on
+> 2026-09-27: the HarmonyOS system image is not present on the verification
+> workstation (§0), so the emulator cannot be started there at all.
 
 ## Files
 

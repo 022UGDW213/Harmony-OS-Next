@@ -8,7 +8,7 @@
     "dev:web": "vite --host 0.0.0.0",
     "dev:api": "tsx server/index.ts",
     "build": "vite build",
-    "start": "node dist-server/index.js",
+    "start": "tsx server/index.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
